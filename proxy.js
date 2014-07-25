@@ -16,12 +16,14 @@ server.on('connection', function(client) {
 		console.log('Client error: %s', err);
 	});
 	client.on('subscribe', function(topic, allow) {
-		if(!proxy_config.topics_allow || (proxy_config.topics_allow && isIn(proxy_config.topics_allow)))
+		if((!proxy_config.topics_allow || (proxy_config.topics_allow && isIn(proxy_config.topics_allow, topic))) ||
+		(!proxy_config.topics_deny || (proxy_config.topics_deny && isIn(proxy_config.topics_deny, topic))))
 			return allow(true);
 		return allow(false);
 	});
 	client.on('publish', function(topic, message, flags, allow) {
-		if(!proxy_config.topics_allow || (proxy_config.topics_allow && isIn(proxy_config.topics_allow)))
+		if((!proxy_config.topics_allow || (proxy_config.topics_allow && isIn(proxy_config.topics_allow, topic))) ||
+		(!proxy_config.topics_deny || (proxy_config.topics_deny && isIn(proxy_config.topics_deny, topic))))
 			return allow(true);
 		return allow(false);
 	});
