@@ -1,0 +1,36 @@
+{
+  "author": {
+    "name": "Michiel van der Velde",
+    "email": "michiel@michielvdvelde.nl"
+  },
+  "name": "adhesion",
+  "homepage": "http://adhesion.artofcoding.nl/",
+  "description": "MQTT over WebSockets",
+  "version": "0.2",
+  "preferGlobal": false,
+  "keywords": [
+    "ws",
+	"mqtt",
+	"websockets",
+	"pub/sub",
+	"publish",
+	"subscribe",
+	"iot"
+  ]
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/michielvdvelde/adhesion.git"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "dependencies": {
+    "ws": ">=0.4.31",
+"mqtt": ">=0.3.8"
+  },
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/michielvdvelde/adhesion/issues"
+  },
+  "license": "MIT"
+}
