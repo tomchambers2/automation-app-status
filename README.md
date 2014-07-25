@@ -72,10 +72,9 @@ client.on('error', function(error) {
 client.on('open', function() {
     console.log('Connection established!');
     client.subscribe('/var/www/#');
-    client.publish('/var/www/etc', 'This works!');
     client.publish('/var/www/ret', 'This works!', { retain: true }); // retain is optional
     client.on('message', function(topic, message) {
-        console.log(%s %s, topic, message);
+        console.log('%s %s', topic, message);
         client.close(); // close the WebSocket
     });
 });
