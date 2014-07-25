@@ -2,6 +2,9 @@
 
 Adhesion is a light-weight solution that allows you to directly use the familiar MQTT pub/sub commands in the browser. It saves you from having to write custom code, and you do not need to expose your MQTT broker to the world.
 
+[Adhesion project site](http://adhesion.artofcoding.nl)
+[Adhesion blog post](http://artofcoding.nl/entry/adhesion-reloaded)
+
 ## Installing
 
 ```npm install adhesion```

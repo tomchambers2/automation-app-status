@@ -6,7 +6,7 @@
   "name": "adhesion",
   "homepage": "http://adhesion.artofcoding.nl/",
   "description": "MQTT over WebSockets",
-  "version": "0.2",
+  "version": "0.2.0",
   "preferGlobal": false,
   "keywords": [
     "ws",
@@ -16,7 +16,7 @@
 	"publish",
 	"subscribe",
 	"iot"
-  ]
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/michielvdvelde/adhesion.git"
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "ws": ">=0.4.31",
-"mqtt": ">=0.3.8"
+    "mqtt": ">=0.3.8"
   },
   "readmeFilename": "README.md",
   "bugs": {
