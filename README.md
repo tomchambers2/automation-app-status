@@ -76,6 +76,7 @@ client.on('open', function() {
     });
 });
 client.connect();
+```
 
 ## Licence
 
