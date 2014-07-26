@@ -2,9 +2,10 @@
 
 Adhesion is a light-weight solution that allows you to directly use the familiar MQTT pub/sub commands in the browser. It saves you from having to write custom code, and you do not need to expose your MQTT broker to the world.
 
-[Adhesion project site](http://adhesion.artofcoding.nl)
+### More Information
 
-[Adhesion blog post](http://artofcoding.nl/entry/adhesion-reloaded)
+* [Adhesion project site](http://adhesion.artofcoding.nl)
+* [Adhesion blog post](http://artofcoding.nl/entry/adhesion-reloaded)
 
 ## Installing
 
@@ -23,6 +24,15 @@ When using Adhesion as a stand-alone app, supply your MQTT and WebSocket setting
     "websocket_port": 8090
 }
 ```
+
+| Option         | Default       | Description  |
+| -------------  |:-------------:| ------------:|
+| mqtt_host      | localhost     | MQTT broker host        |
+| mqtt_port      | 1883          | MQTT broker port        |
+| websocket_port | 8090          | Port to open WebSocket on        |
+| topics_allow   | null (array)  | Which topics the client is allowed to access (optional)        |
+| topics_deny    | null (array)  | Which topics the client is denied access (optional)        |
+| deny_publish   | null (false)  | Deny client publish rights for all topics (optional)        |
 
 ### In your own app
 
@@ -80,6 +90,17 @@ client.on('open', function() {
 });
 client.connect();
 ```
+
+## Changelog
+
+### Versouin 0.2.1 - 26h July 2014
+
+* Improved 'topics_allow' and 'topics_deny' options in proxy
+* Added 'deny_publish' option in proxy
+
+### Version 0.2.0 - 25th July 2014
+
+* Rework of version 0.0.1, initial commit
 
 ## Licence
 
