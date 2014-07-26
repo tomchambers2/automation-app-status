@@ -22,7 +22,8 @@ server.on('connection', function(client) {
 		return allow(false);
 	});
 	client.on('publish', function(topic, message, flags, allow) {
-		if((!proxy_config.topics_allow || (proxy_config.topics_allow && isIn(proxy_config.topics_allow, topic))) ||
+		if(!proxy_config.deny_publish ||
+		(!proxy_config.topics_allow || (proxy_config.topics_allow && isIn(proxy_config.topics_allow, topic))) ||
 		(!proxy_config.topics_deny || (proxy_config.topics_deny && isIn(proxy_config.topics_deny, topic))))
 			return allow(true);
 		return allow(false);
