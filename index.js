@@ -11,7 +11,7 @@ var Server = function(config) {
 	
 	var self = this;
 	this.start = function(cb) {
-		wss = new WebSocketServer({port: self.config.websocket_port});
+		wss = new WebSocketServer({port: self.config.websocket_port || 8090});
 		wss.on('connection', function(ws) {
 			self.emit('connection', new Client(ws, config));
 		});
