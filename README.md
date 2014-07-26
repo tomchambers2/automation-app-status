@@ -26,7 +26,7 @@ When using Adhesion as a stand-alone app, supply your MQTT and WebSocket setting
 ```
 
 | Option         | Default       | Description  |
-| -------------  |:-------------:| ------------:|
+| -------------  |---------------| -------------|
 | mqtt_host      | localhost     | MQTT broker host        |
 | mqtt_port      | 1883          | MQTT broker port        |
 | websocket_port | 8090          | Port to open WebSocket on        |
@@ -93,12 +93,12 @@ client.connect();
 
 ## Changelog
 
-### Versouin 0.2.1 - 26h July 2014
+#### Version 0.2.1 - 26h July 2014
 
 * Improved 'topics_allow' and 'topics_deny' options in proxy
 * Added 'deny_publish' option in proxy
 
-### Version 0.2.0 - 25th July 2014
+#### Version 0.2.0 - 25th July 2014
 
 * Rework of version 0.0.1, initial commit
 
