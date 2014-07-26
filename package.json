@@ -5,8 +5,8 @@
   },
   "name": "adhesion",
   "homepage": "http://adhesion.artofcoding.nl/",
-  "description": "MQTT over WebSockets",
-  "version": "0.2.0",
+  "description": "Use MQTT directly in your web pages using WebSockets",
+  "version": "0.2.1",
   "preferGlobal": false,
   "keywords": [
     "ws",
