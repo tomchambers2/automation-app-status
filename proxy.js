@@ -16,15 +16,20 @@ server.on('connection', function(client) {
 		console.log(err);
 	});
 	client.on('subscribe', function(topic, allow) {
-		if((proxy_config.topics_allow && !isIn(proxy_config.topics_allow, topic)) ||
-		(proxy_config.topics_deny && isIn(proxy_config.topics_deny, topic)))
+		if(
+		(proxy_config.topics_allow && !isIn(proxy_config.topics_allow, topic)) ||
+		(proxy_config.topics_deny && isIn(proxy_config.topics_deny, topic)) ||
+		(proxy_config.topics_allow_subscribe && !isIn(proxy_config.topics_allow_subscribe, topic)) ||
+		(proxy_config.topics_deny_subscribe && isIn(proxy_config.topics_deny_subscribe, topic)))
 			return allow(false);
 		return allow(true);
 	});
 	client.on('publish', function(topic, message, flags, allow) {
 		if(proxy_config.deny_publish ||
 		(proxy_config.topics_allow && !isIn(proxy_config.topics_allow, topic)) ||
-		(proxy_config.topics_deny && isIn(proxy_config.topics_deny, topic)))
+		(proxy_config.topics_deny && isIn(proxy_config.topics_deny, topic)) ||
+		(proxy_config.topics_allow_publish && !isIn(proxy_config.topics_allow_publish, topic)) ||
+		(proxy_config.topics_deny_publish && isIn(proxy_config.topics_deny_publish, topic)))
 			return allow(false);
 		return allow(true);
 	});

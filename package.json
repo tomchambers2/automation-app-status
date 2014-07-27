@@ -6,7 +6,7 @@
   "name": "adhesion",
   "homepage": "http://adhesion.artofcoding.nl/",
   "description": "Use MQTT directly in your web pages using WebSockets",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "preferGlobal": false,
   "keywords": [
     "ws",

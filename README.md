@@ -25,14 +25,18 @@ When using Adhesion as a stand-alone app, supply your MQTT and WebSocket setting
 }
 ```
 
-| Option         | Type   | Default   | Description                                             |
-| ---------------|--------|-----------| --------------------------------------------------------|
-| mqtt_host      | String | localhost | MQTT broker host                                        |
-| mqtt_port      | Int    | 1883      | MQTT broker port                                        |
-| websocket_port | Int    | 8090      | Port to open WebSocket on                               |
-| topics_allow   | Array  | -         | Which topics the client is allowed to access (optional) |
-| topics_deny    | Array  | -         | Which topics the client is denied access (optional)     |
-| deny_publish   | Bool   | false     | Deny client publish rights for all topics (optional)    |3
+| Option                 | Type   | Default   | Description                                                     |
+| -----------------------|--------|-----------| ----------------------------------------------------------------|
+| mqtt_host              | String | localhost | MQTT broker host.                                               |
+| mqtt_port              | Int    | 1883      | MQTT broker port.                                               |
+| websocket_port         | Int    | 8090      | Port to open WebSocket on.                                      |
+| topics_allow           | Array  | -         | Which topics the client is allowed to access (optional).        |
+| topics_deny            | Array  | -         | Which topics the client is denied access (optional).            |
+| deny_publish           | Bool   | false     | Deny client publish rights for all topics (optional).           |
+| topics_allow_subscribe | Array  | -         | Which topics the client is allowed subscribe rights (optional). |
+| topics_deny_subscribe  | Array  | -         | Which topics the client is denied subscribe rights (optional).  |
+| topics_allow_publish   | Array  | -         | Which topics the client is allowed publish rights (optional).   |
+| topics_deny_publish    | Array  | -         | Which topics the client is denied publish rights (optional).    |
 
 You can start the proxy by issuing ```node proxy.js```. Of course you can use a system like Forever to keep it on line.
 
@@ -93,10 +97,33 @@ client.on('open', function() {
 client.connect();
 ```
 
+#### Reconnecting
+
+Adhesion has support for auto-reconnect when the WebSocket is closed by an error. To enable reconnecting, give ```reconnect``` to the ```getClient``` function:
+
+```js
+// ...
+var client = Adhesion.getClient('ws://localhost:8090', { 'reconnect': true, 'reconnect_tries': 3 });
+```
+
+```reconnect_tries``` is optional, and defaults to 3. If all three attempts fail, the client will emit the ```max_reconnected``` event.
+
+```js
+// ...
+client.on('max_reconnected', function() {
+	alert('Failed to reconnect to WebSocket!');
+});
+```
+
 ## Changelog
 
-#### Version 0.2.2 - 27h July 2014
+#### Version 0.2.2/0.2.3 - 27h July 2014
 
+0.2.3
+* Once again improvements to belowmentioned restriction vars
+* Reconnection support
+
+0.2.2
 * Added 'not_allowed' and 'server_error' events to client
 * Fixed 'topics_allow', 'topics_deny' and 'deny_publish' in proxy
 
@@ -111,9 +138,8 @@ client.connect();
 
 ## Planned
 
-* Better support for which topics are subscribable and publishable on, with support for wildcards
+* Support for wildcards on proxy subscribe/publish allow/deny config
 * Better error handling
-* Reconnect support
 
 ## Licence
 
