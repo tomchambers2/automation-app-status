@@ -25,14 +25,16 @@ When using Adhesion as a stand-alone app, supply your MQTT and WebSocket setting
 }
 ```
 
-| Option         | Default       | Description  |
-| -------------  |---------------| -------------|
-| mqtt_host      | localhost     | MQTT broker host        |
-| mqtt_port      | 1883          | MQTT broker port        |
-| websocket_port | 8090          | Port to open WebSocket on        |
-| topics_allow   | null (array)  | Which topics the client is allowed to access (optional)        |
-| topics_deny    | null (array)  | Which topics the client is denied access (optional)        |
-| deny_publish   | null (false)  | Deny client publish rights for all topics (optional)        |
+| Option         | Type   | Default   | Description                                             |
+| ---------------|--------|-----------| --------------------------------------------------------|
+| mqtt_host      | String | localhost | MQTT broker host                                        |
+| mqtt_port      | Int    | 1883      | MQTT broker port                                        |
+| websocket_port | Int    | 8090      | Port to open WebSocket on                               |
+| topics_allow   | Array  | -         | Which topics the client is allowed to access (optional) |
+| topics_deny    | Array  | -         | Which topics the client is denied access (optional)     |
+| deny_publish   | Bool   | false     | Deny client publish rights for all topics (optional)    |3
+
+You can start the proxy by issuing ```node proxy.js```. Of course you can use a system like Forever to keep it on line.
 
 ### In your own app
 
@@ -93,6 +95,11 @@ client.connect();
 
 ## Changelog
 
+#### Version 0.2.2 - 27h July 2014
+
+* Added 'not_allowed' and 'server_error' events to client
+* Fixed 'topics_allow', 'topics_deny' and 'deny_publish' in proxy
+
 #### Version 0.2.1 - 26h July 2014
 
 * Improved 'topics_allow' and 'topics_deny' options in proxy
@@ -101,6 +108,12 @@ client.connect();
 #### Version 0.2.0 - 25th July 2014
 
 * Rework of version 0.0.1, initial commit
+
+## Planned
+
+* Better support for which topics are subscribable and publishable on, with support for wildcards
+* Better error handling
+* Reconnect support
 
 ## Licence
 
