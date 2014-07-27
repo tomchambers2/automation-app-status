@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Adhesion Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <!-- Custom styles for this template
+    <link href="footer.css" rel="stylesheet"> -->
+	
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+	
+	<style>
+	/* Sticky footer styles
+-------------------------------------------------- */
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+table {
+  width: 100%;
+  margin: 25px;
+}
+th, td {
+  padding: 5px;
+}
+</style>
+  </head>
+  <body>
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+      <div class="container">
+	  
+	  
+        <div class="page-header">
+          <h1>Adhesion Client Test</h1>
+        </div>
+		
+		<table>
+			<thead>
+				<tr>
+					<th style="width: 25%;">WebSocket status</th>
+					<th>Message</th>
+					<th>Error</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="tdStatus">Not opened</td>
+					<td id="tdMessage">&nbsp;</td>
+					<td id="tdError">&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<input type="text" size="40" id="subTopic" /> <input type="button" value="Subscribe" onclick="subscribe();" /><br />
+		<input type="text" size="40" id="pubTopic" /> <input type="text" size="20" id="pubMessage" /> <input type="button" value="Publish" onclick="publish();" /><br />
+		<input type="button" value="Close WebSocket" onclick="closes();" />
+		
+	</div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted">&copy; Novus Home Automation</p>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+	
+    <script src="client.js"></script>
+	
+	<script>
+	var client = Adhesion.getClient('ws://192.168.2.3:8090');
+	client.on('open', function() {
+		$('#tdStatus').html('Open');
+		console.log('Open');
+		client.subscribe('sensor/inside/arduino/temperature');
+		client.on('error', function(error) {
+			$('#tdError').html(error);
+			console.log('Error');
+		});
+		client.on('message', function(topic, message) {
+			$('#tdMessage').html(topic + ' ' + message);
+			console.log('Message');
+		});
+		client.on('not_allowed', function(type, topic) {
+			alert('Not allowed');
+			console.log('Not allowed to %s on %s', type, topic);
+		});
+		client.on('close', function() {
+			$('#tdStatus').html('Closed');
+		});
+	});
+	client.connect();
+	
+	var subscribe = function() {
+		var val = $('#subTopic').val();
+		console.log(val);
+		client.subscribe(val);
+	};
+	var closes = function() {
+		console.log('Close');
+		client.close();
+	};
+	var publish = function() {
+		var topic = $('#pubTopic').val();
+		var msg = $('#pubMessage').val();
+		client.publish(topic, msg);
+	};
+	</script>
+  </body>
+</html>
