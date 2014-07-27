@@ -1,4 +1,3 @@
-
 var Adhesion = {
 	isSupported: function() {
 		return typeof(WebSocket) == "function";
@@ -36,9 +35,9 @@ var Adhesion = {
 					if(message.action == 'message')
 						if(self.event_handlers['message']) self.event_handlers['message'](message.topic, message.message);
 					else if(message.action == 'not_allowed')
-						console.log('Action %s on topic %s not allowed by the server', message.type, message.topic);
+						if(self.event_handlers['not_allowed']) self.event_handlers['not_allowed'](message.type, message.topic);
 					else if(message.action == 'error')
-						console.log('Server %s error: %s', message.type, message.error);
+						if(self.event_handlers['server_error']) self.event_handlers['server_error'](message.type, message.error);
 				};
 			};
 			this.close = function() {
