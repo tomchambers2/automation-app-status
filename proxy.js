@@ -1,4 +1,3 @@
-
 var adhesion = require('./index');
 var proxy_config = require('./proxy_config');
 
@@ -14,19 +13,20 @@ var server = new adhesion.Server(proxy_config);
 server.on('connection', function(client) {
 	client.on('error', function(err) {
 		console.log('Client error: %s', err);
+		console.log(err);
 	});
 	client.on('subscribe', function(topic, allow) {
-		if((!proxy_config.topics_allow || (proxy_config.topics_allow && isIn(proxy_config.topics_allow, topic))) ||
-		(!proxy_config.topics_deny || (proxy_config.topics_deny && isIn(proxy_config.topics_deny, topic))))
-			return allow(true);
-		return allow(false);
+		if((proxy_config.topics_allow && !isIn(proxy_config.topics_allow, topic)) ||
+		(proxy_config.topics_deny && isIn(proxy_config.topics_deny, topic)))
+			return allow(false);
+		return allow(true);
 	});
 	client.on('publish', function(topic, message, flags, allow) {
-		if(!proxy_config.deny_publish ||
-		(!proxy_config.topics_allow || (proxy_config.topics_allow && isIn(proxy_config.topics_allow, topic))) ||
-		(!proxy_config.topics_deny || (proxy_config.topics_deny && isIn(proxy_config.topics_deny, topic))))
-			return allow(true);
-		return allow(false);
+		if(proxy_config.deny_publish ||
+		(proxy_config.topics_allow && !isIn(proxy_config.topics_allow, topic)) ||
+		(proxy_config.topics_deny && isIn(proxy_config.topics_deny, topic)))
+			return allow(false);
+		return allow(true);
 	});
 });
 
