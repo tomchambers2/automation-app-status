@@ -1,11 +1,12 @@
 # Adhesion - MQTT over WebSockets
 
+**Notice:** Since version 1.4, Mosquitto supports native WebSockets. It may be a bright idea to check if the broker you use supports WebSockets before using a third-party library such as this.
+
 Adhesion is a light-weight solution that allows you to directly use the familiar MQTT pub/sub commands in the browser. It saves you from having to write custom code, and you do not need to expose your MQTT broker to the world.
 
 ### More Information
 
 * [Adhesion project site](http://adhesion.artofcoding.nl)
-* [Adhesion blog post](http://artofcoding.nl/entry/adhesion-reloaded)
 
 ## Installing
 
