@@ -1,5 +1,5 @@
 {
-	"mqtt_host": "localhost",
+	"mqtt_host": "mqtt://192.168.1.74",
 	"mqtt_port": 1883,
 	"websocket_port": 8090,
 	"topics_deny": [

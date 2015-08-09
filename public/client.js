@@ -46,7 +46,7 @@ var Adhesion = {
 				};
 				self.websocket.onmessage = function(event) {
 					var message = JSON.parse(event.data);
-					console.log(message.action);
+					//console.log(message.action);
 					if(message.action == 'message') {
 						if(self.event_handlers['message'])
 							self.event_handlers['message'](message.topic, message.message);

@@ -24,8 +24,21 @@ var Client = function(ws, config) {
 	events.EventEmitter.call(this);
 	this.config = config;
 	this.ws = ws;
-	var mqttClient = mqtt.createClient(this.config.mqtt_port || 1883, this.config.mqtt_host || 'localhost');
-	
+	//var mqttClient = mqtt.createClient(this.config.mqtt_port || 1883, this.config.mqtt_host || 'localhost');
+	var mqttClient = mqtt.connect("mqtt://192.168.1.74")
+
+	mqttClient.on('connect', function() {
+		console.log('CONNECTED!')
+	})
+
+	mqttClient.on('close', function() {
+		console.log('CLOSED!')
+	})
+
+	mqttClient.on('offline', function() {
+		console.log('OFFLINE!')
+	})	
+
 	var self = this;
 	var subscribe = function(topic) {
 		var allow = function(alloww) {
@@ -61,7 +74,7 @@ var Client = function(ws, config) {
 	});
 	
 	mqttClient.on('message', function(topic, message) {
-		var payload = { 'action': 'message', 'topic': topic, 'message': message };
+		var payload = { 'action': 'message', 'topic': topic, 'message': message.toString() };
 		self.ws.send(JSON.stringify(payload), function(err) {
 			if(err) self.emit('error', err);
 		});
