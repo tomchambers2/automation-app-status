@@ -1,4 +1,4 @@
-var client = Adhesion.getClient('ws://localhost:8090')
+var client = Adhesion.getClient('ws://192.168.1.74:8090')
 
 var data = {
 	messages: [],
